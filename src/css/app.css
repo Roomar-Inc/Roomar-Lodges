@@ -1,0 +1,15 @@
+/* Your app custom styles here */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	button {
+		@apply active:opacity-55 duration-75 transition-opacity;
+	}
+}
+
+/* .searchbar-input-wrap,
+.searchbar-input-wrap input {
+	border-radius: 40px;
+} */
