@@ -62,7 +62,7 @@ const Home = () => {
 
 		<ListItem
           link="/subscriptions"
-          title="Subscriptions"
+          title="Subscription"
           selected={selected === 'subscriptions'}
 		  className={selected === 'subscriptions' ? 'active-item' : ''}
 

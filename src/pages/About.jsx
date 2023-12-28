@@ -5,7 +5,7 @@ import BackButton from '../components/App/BackButton'
 
 function About() {
   return (
-    <Page className="flex flex-col">
+    <Page className="flex flex-col bg-zinc-50">
       <Tabs>
     {/* <Navbar title="More User Options" backLink="Back" /> */}
 
