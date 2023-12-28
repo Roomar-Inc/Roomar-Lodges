@@ -1,16 +1,11 @@
-import {
-	ChevronRightIcon,
-	ChevronLeftIcon,
-	PlayIcon,
-	HomeIcon,
-	RectangleStackIcon,
-	PauseIcon,
-	MagnifyingGlassIcon,
-	ChevronDoubleDownIcon,
-} from "@heroicons/react/20/solid";
-import { useContext, useState } from "react";
+
+import { useContext, useState, useRef, useEffect } from "react";
 import { GlobalContext } from "../../contexts/GlobalContext";
-import { Link } from "framework7-react";
+import { Tab } from "framework7-react";
+import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import { gsap } from 'gsap';
+import Draggable from "gsap/src/Draggable";
+
 
 const BottomNav = () => {
 	const { setPopupOpened, showNav, popupOpened, togglePlay, anim, playing } =
@@ -72,19 +67,60 @@ const BottomNav = () => {
 		setStartY(null);
 	};
 
+	const draggableRef = useRef(null);
+	gsap.registerPlugin(Draggable);
+
+	useEffect(() => {
+	  if (draggableRef.current) {
+		Draggable.create(draggableRef.current, {
+		  onDragStart: function () {
+			// Initialize drag data if needed
+		  },
+		  onDrag: function () {
+			// Update tab size based on drag position
+			const newTabSize = Math.max(0, window.innerHeight - this.y);
+			setTabSize(newTabSize);
+		  },
+		  // Other options...
+		});
+	  }
+  
+	  // Cleanup function (optional)
+	  return () => {
+		Draggable.get(draggableRef.current)?.kill();
+	  };
+	}, []);
+  
+	const [tabSize, setTabSize] = useState(0);
+  
+	const toggleFullScreen = () => {
+	  // Toggle between full screen and normal size
+	  setTabSize((prevSize) => (prevSize === 0 ? window.innerHeight : 0));
+	};
+
 	return (
-		<div className="fixed bottom-0 left-0 w-full p-2 z-[5000] text-zinc-50 transition-all">
+		<Tab >
+		<div         ref={draggableRef}
+        className={`fixed bottom-0 left-0 w-full z-[5000] text-zinc-50 transition-all rounded-t-md shadow-lg`}
+        style={{ height: tabSize }}
+      			>
 			<nav
-				className={`flex justify-around mb-0 transition-all w-full h-max p-4 bg-rose-600 shadow-lg rounded-md relative`}
+				className={`flex flex-col justify-center mb-0 transition-all w-full h-max p-4 bg-gray-100 shadow-lg relative`}
 			>
-				<Link tabLink="#home">
-					<HomeIcon className="h-6" />
-				</Link>
-				<Link tabLink="#search">
-					<MagnifyingGlassIcon className="h-6" />
-				</Link>
+			<div className="block w-1/4 rounded-md border-4 border-gray-300 mx-auto m-0 mb-4"> </div>
+				<div className="p-4 pt-0 relative">
+				<input
+					placeholder="Explore Homes"
+					className="w-full py-2 px-4 text-base text-zinc-700 rounded-md font-medium bg-zinc-100 border-2 border-zinc-400 placeholder:text-zinc-600"
+				/>
+				<div className="absolute top-2 right-7 bg-zinc-100">
+					<MagnifyingGlassIcon className="h-6 text-zinc-400" />
+				</div>
+			</div>
+
 			</nav>
 		</div>
+		</Tab>
 	);
 };
 
