@@ -9,6 +9,100 @@
 	}
 }
 
+:root {
+	--f7-theme-color: #1b1b1b !important;
+	--f7-theme-color-rgb: #ffe4e6 !important;
+}
+
+.carousel-images {
+  position: relative;
+  border-radius: 10px;
+  height: 300px;
+  max-width: 600px;
+  margin: auto;
+  overflow: hidden;
+}
+.carousel-images img {
+  width: 99%;
+  height: 99%;
+  border-radius: 8px;
+  border: #ff00008e solid 2px;
+}
+.slide_direction {
+  display: flex;
+  justify-content: space-between;
+}
+.left,
+.right {
+  background-color: #fb666675;
+  color: #fff;
+  padding: 7px 8px 6px 6px;
+  margin: 0 20px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 20px;
+  height: 22px;
+  width: 22px;
+}
+
+.icon-back::after {
+	font-size: 12px !important;
+}
+
+.left {
+  left: 0;
+}
+.right {
+  right: 0;
+}
+.carousel-indicator {
+  margin-top: -23px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.dot {
+  background-color: #f9a0a5;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.active {
+  background-color: #e11d48;
+}
+
+.card-expandable {
+  height: 150px !important;
+  font-size: 12px;
+}
+
+.with-gold-shadow {
+  box-shadow: 0 0 10px rgba(255, 223, 0, 0.5);
+}
+
+
+@media (max-width: 1015px) {
+  .cardss {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+/* .active-item {
+	background-color: #ffe4e6; 
+	border-radius: 12px; 
+	margin: 0  auto;
+  }
+
+  .nonactive {
+	margin: 0  auto;
+  } */
+
+
+
 /* .searchbar-input-wrap,
 .searchbar-input-wrap input {
 	border-radius: 40px;
