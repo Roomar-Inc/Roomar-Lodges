@@ -84,7 +84,7 @@ const Home = () => {
         </ListItem>
       	</List>
 
-		<Link href="/download-link">
+		<Link href="/">
 		<div className='mx-4 bg-rose-100 p-3 rounded-md'>
 			<div className='flex items-center justify-between pb-2'>
 			<div className='font-semibold'> Rent Out Your Property </div> <XMarkIcon className='h-5'/>

@@ -1,6 +1,5 @@
 import { Page, Searchbar, Card, CardHeader, CardContent, Link, Button, Tab, List, ListInput } from 'framework7-react'
 import React from 'react'
-import BackButton from '../components/App/BackButton'
 import { ChevronLeftIcon } from '@heroicons/react/20/solid'
 
 const Support = ({ f7router }) => {

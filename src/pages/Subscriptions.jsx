@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Page, Block, Button } from 'framework7-react'
-import BackButton from '../components/App/BackButton'
+import { ChevronLeftIcon } from '@heroicons/react/20/solid';
 
-function Subscriptions() {
+function Subscriptions({ f7router }) {
 
     const [showFreeContent, setShowFreeContent] = useState(false);
     const [showPremiumContent, setShowPremiumContent] = useState(true);
@@ -19,7 +19,12 @@ function Subscriptions() {
 
   return (
     <Page className="bg-zinc-50">
-        <BackButton />
+        <ChevronLeftIcon
+					onClick={() => {
+						f7router.back();
+					}}
+					className="h-7 z-50 relative ml-4 mt-4"
+				/>
 
         <h1 className='ml-10 text-xl font-bold mt-6'>Subscription</h1>
 
