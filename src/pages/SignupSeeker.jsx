@@ -47,7 +47,7 @@ const Signup = ({ f7route, f7router }) => {
     if (e.target.name === "role") {
       setFormData({
         ...formData,
-        role: "owner", // Set the role directly to "owner"
+        role: "seeker", // Set the role directly to "owner"
       });
     } else {
       setFormData({
@@ -149,7 +149,7 @@ const Signup = ({ f7route, f7router }) => {
       // Set formData.role directly to "owner"
       setFormData((prevFormData) => ({
         ...prevFormData,
-        role: "owner",
+        role: "seeker",
       }));
     }
   }, [f7route]);

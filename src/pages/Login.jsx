@@ -71,10 +71,9 @@ const Login = ({ f7route, f7router }) => {
             color: "#e11d48",
           }}
         ></ListInput>
-        <div className="right-2">
-          {/* <Link className="text-sm text-[#e11d48]">Forgot Your Password?</Link> */}
+        <div className="ml-4 cursor-pointer mb-6">
+          <Link className="text-sm text-[#e11d48]">Forgot Your Password?</Link>
         </div>
-
         {/* Second layer */}
         <div className="bg-[#e11d48] text-white text-center rounded-full font-semibold py-2 text-xl w-[80%] mx-auto mt-4">
           Login

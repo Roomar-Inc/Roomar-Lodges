@@ -10,6 +10,13 @@ import {
 } from "@heroicons/react/20/solid";
 
 function ProfileOptions({ f7router }) {
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    // Clear any other user-specific data
+    f7router.navigate('/login');
+  };
+
   return (
     <Page className="bg-zinc-50">
       <Tabs>
@@ -62,7 +69,7 @@ function ProfileOptions({ f7router }) {
           </Link>
 
           <Link className="flex items-center justify-between mx-6">
-            <div className="flex items-center">
+            <div className="flex items-center" onClick={handleLogout}>
               <ArrowLeftStartOnRectangleIcon className="h-5" />
               <ListItem title="Log Out" />
             </div>

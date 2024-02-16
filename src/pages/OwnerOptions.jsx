@@ -10,6 +10,12 @@ import {
 } from "@heroicons/react/20/solid";
 
 function OwnerOptions({ f7router }) {
+
+    const handleRouteToOwnerProfile = () => {
+        // Replace 'f7router' with the correct variable if it's named differently in your code
+        f7router.navigate('/editowner');
+      };
+
   return (
     <Page className="bg-zinc-50">
       <Tabs>
@@ -26,9 +32,7 @@ function OwnerOptions({ f7router }) {
           <UserIcon className="h-20 mx-auto text-zinc-500 rounded-full bg-zinc-100" />
           <div className="text-center text-xl font-semibold mb-4">John Doe</div>
         </div>
-
-        <div className="text-black font-semibold px-2 py-1 bg-rose-100 text-center mx-auto w-[30%] text-md rounded-3xl mt-2">Edit My Profile</div>
-
+        <div className="text-black font-semibold px-2 py-1 bg-rose-100 text-center mx-auto w-[30%] text-md rounded-3xl mt-2" onClick={handleRouteToOwnerProfile}>Edit My Profile</div>
         <List strongIos outlineIos dividersIos form formStoreData id="demo-form">
         <ListInput
           label="Name"
