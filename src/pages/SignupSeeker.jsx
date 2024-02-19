@@ -16,7 +16,7 @@ import axiosPrivate from "../api/axios.jsx";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 
-const Signup = ({ f7route, f7router }) => {
+const SignupSeeker = ({ f7route, f7router }) => {
   const [role, setRole] = useState("");
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const phoneRegex = /^(\+234\d{10}|^234\d{10}|^0[789]\d{9})$/; // Accepts +234, 234, or 0 followed by 7, 8, or 9 and then 9 more digits
@@ -104,7 +104,7 @@ const Signup = ({ f7route, f7router }) => {
       }
       console.log(formData);
       console.log("Making request to:", "/api/v1/signup");
-      const response = await axios.post(apiUrl, formData);
+      const response = await axiosPrivate.post("/signup", formData);
       console.log("Response:", response);
       openDialog(); // Open the dialog when loading starts
 
@@ -112,7 +112,7 @@ const Signup = ({ f7route, f7router }) => {
       if (response && response?.status === 201) {
         f7.dialog.close();
         // Navigate to the photo page after successful signup
-        handleRouteToPhotoPage();
+        handleRouteToHome();
       }
     } catch (error) {
       showToastTop();
@@ -120,8 +120,8 @@ const Signup = ({ f7route, f7router }) => {
     }
   };
 
-  const handleRouteToPhotoPage = () => {
-    f7router.navigate("/signupnext");
+  const handleRouteToHome = () => {
+    f7router.navigate("/seekerhome");
   };
 
   const showToastTop = () => {
@@ -302,7 +302,7 @@ const Signup = ({ f7route, f7router }) => {
         </div>
         <p className="text-center text-sm mt-2">
           Already have an account?{" "}
-          <Link href="/login" className="text-[#e11d48] font-semibold">
+          <Link href="/loginseeker" className="text-[#e11d48] font-semibold">
             Login
           </Link>
         </p>
@@ -311,4 +311,4 @@ const Signup = ({ f7route, f7router }) => {
   );
 };
 
-export default Signup;
+export default SignupSeeker;

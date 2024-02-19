@@ -127,6 +127,7 @@ const Owner = () => {
             <UserIcon className="h-6" />
           </Link>
         </div>
+        {/* {Main Content Starts Here} */}
         <img src={cf} alt="confetti" className="mx-auto pt-12" />
         <div className="text-2xl font-semibold mx-auto text-center">
           You're all set!
@@ -137,6 +138,7 @@ const Owner = () => {
         <div className="bg-[#e11d48] text-white text-center rounded-full font-semibold py-2 text-xl w-[80%] mx-auto mt-4">
           Create post
         </div>
+        {/* {Main Content Ends Here} */}
       </Tab>
     </Page>
   );

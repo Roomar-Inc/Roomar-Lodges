@@ -83,6 +83,11 @@
 }
 
 
+#otp {
+  border-radius: 4px !important;
+  border-style: dashed !important;
+}
+
 @media (max-width: 1015px) {
   .cardss {
     display: flex;
@@ -90,6 +95,8 @@
     justify-content: center;
   }
 }
+
+
 
 /* .active-item {
 	background-color: #ffe4e6; 

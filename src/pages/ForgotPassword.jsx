@@ -15,34 +15,25 @@ import { ChevronLeftIcon } from "@heroicons/react/20/solid";
 import axiosPrivate from "../api/axios.jsx";
 import toast, { Toaster } from "react-hot-toast";
 
-const Login = ({ f7route, f7router }) => {
+const ForgotPassword = ({ f7route, f7router }) => {
   const [role, setRole] = useState("");
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   const [formErrors, setFormErrors] = useState({
     email: "",
-    password: "",
   });
 
   const [formData, setFormData] = useState({
     email: "",
-    password: "",
   });
 
   const toastTop = useRef(null);
 
   const handleInputChange = (e) => {
-    if (e.target.name === "role") {
-      setFormData({
-        ...formData,
-        role: "owner", // Set the role directly to "owner"
-      });
-    } else {
       setFormData({
         ...formData,
         [e.target.name]: e.target.value,
       });
-    }
 
     // Clear error when the user starts typing
     setFormErrors({
@@ -59,9 +50,6 @@ const Login = ({ f7route, f7router }) => {
 
     if (name === "email" && !emailRegex.test(value)) {
       error = "Invalid Email address";
-    } else if (name === "password" && !isValidPassword(value)) {
-      error =
-        "Password must have at least 8 characters, include numbers, alphabets, and special characters (# !@$%^&*)";
     }
 
     setFormErrors({
@@ -70,14 +58,7 @@ const Login = ({ f7route, f7router }) => {
     });
   };
 
-  const isValidPassword = (password) => {
-    // Password must have at least 8 characters, include numbers, alphabets, and special characters (# !@$%^&*)
-    const passwordRegex =
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-    return passwordRegex.test(password);
-  };
-
-  const handleSignup = async (e) => {
+  const handleForgotPassword = async (e) => {
     e.preventDefault();
     try {
       if (Object.values(formErrors).some((error) => error)) {
@@ -86,14 +67,14 @@ const Login = ({ f7route, f7router }) => {
         return;
       }
       console.log(formData);
-      console.log("Making request to:", "/api/v1/login");
-      const response = await axiosPrivate.post("/login", formData);
+      console.log("Making request to:", "/api/v1/forgotPassword");
+      const response = await axiosPrivate.post("/forgotPassword", formData);
       console.log("Response:", response);
 
       console.log(response.data);
       if (response && response?.status === 200) {
         // Navigate to the photo page after successful signup
-        handleRouteToOwnerHome();
+        handleRouteToSentOtp();
       }
     } catch (error) {
       showToastTop();
@@ -122,8 +103,8 @@ const Login = ({ f7route, f7router }) => {
     toastTop.current.open();
   };
 
-  const handleRouteToOwnerHome = () => {
-    f7router.navigate('/ownerhome');
+  const handleRouteToSentOtp = () => {
+    f7router.navigate('/otp');
   };
 
     useEffect(() => {
@@ -150,7 +131,7 @@ const Login = ({ f7route, f7router }) => {
       <Toaster />
       <img src={roomarlogo} alt="" className="mx-auto w-20 mt-6" />
       <h1 className="text-lg font-semibold ml-6 text-[#e11d48] mt-4">
-        Welcome back!
+        Forgot Your Password
       </h1>
 
       <List strongIos dividersIos insetIos className="mt-2">
@@ -178,38 +159,16 @@ const Login = ({ f7route, f7router }) => {
             {formErrors.email}
           </ListItem>
         )}
-        <ListInput
-          outline
-          label="Password"
-          floatingLabel
-          type="password"
-          placeholder="Set password"
-          value={formData.password}
-          onInput={handleInputChange}
-          onBlur={handleBlur}
-          name="password"
-          clearButton
-        >
-          <Icon icon="demo-list-icon" slot="media" />
-        </ListInput>
-        {formErrors.password && (
-          <ListItem className="mt-0 text-xs text-red-500 mb-2 pl-2 pt-0">
-            {formErrors.password}
-          </ListItem>
-        )}
-        <div className="ml-4 cursor-pointer mb-6">
-          <Link className="text-sm text-[#e11d48]" href="/forgotpassword">Forgot Your Password? Reset</Link>
-        </div>
         {/* Second layer */}
         <div className="bg-[#e11d48] text-white cursor-pointer text-center rounded-full font-semibold py-2 text-xl w-[80%] mx-auto mt-4">
-          <button type="submit" onClick={handleSignup} className="cursor-pointer">
-            Login
+          <button type="submit" onClick={handleForgotPassword} className="cursor-pointer">
+            Send Email
           </button>
         </div>
         <p className="text-center text-sm mt-2">
-          Don't have an account?{" "}
-          <Link href="/signup" className="text-[#e11d48] font-semibold">
-            Sign up
+          I want to?{" "}
+          <Link href="/" className="text-[#e11d48] font-semibold">
+            Cancel
           </Link>
         </p>
         {/* <p className="text-center">Or sign up with</p> */}
@@ -218,4 +177,4 @@ const Login = ({ f7route, f7router }) => {
   );
 };
 
-export default Login;
+export default ForgotPassword;

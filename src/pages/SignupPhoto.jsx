@@ -6,12 +6,13 @@ import axiosPrivate from "../api/axios.jsx";
 const SignupPhotoPage = ({ f7router }) => {
   const [photo, setPhoto] = useState(null);
 
-  const handlePhotoUpload = async () => {
+  const handlePhotoUpload = async (e) => {
+    e.preventDefault();
     try {
       const formData = new FormData();
       formData.append("photo", photo);
 
-      const response = await axiosPrivate.post("/api/v1/signup", formData, {
+      const response = await axiosPrivate.post("/signup", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -48,7 +49,7 @@ const SignupPhotoPage = ({ f7router }) => {
       <Button fill onClick={handlePhotoUpload}>
         Upload Photo
       </Button>
-      <Button fill className="mt-2" onClick={handleRouteToOwnerHome}>
+      <Button fill className="mt-2 bg-[#e11d48] w-[70%]" onClick={handleRouteToOwnerHome}>
         Finish Signup
       </Button>
     </Page>

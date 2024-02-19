@@ -1,42 +1,32 @@
-// Signup.jsx
 import React, { useEffect, useState, useRef } from "react";
 import {
   Navbar,
   Page,
+  Input,
   List,
   Icon,
   ListInput,
-  Link,
-  f7,
   ListItem,
+  Link,
+  f7
 } from "framework7-react";
 import roomarlogo from "../../resources/roomar-rlo.png";
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
 import axiosPrivate from "../api/axios.jsx";
 import toast, { Toaster } from "react-hot-toast";
 
-const Signup = ({ f7route, f7router }) => {
+const LoginSeeker = ({ f7route, f7router }) => {
   const [role, setRole] = useState("");
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  const phoneRegex = /^(\+234\d{10}|^234\d{10}|^0[789]\d{9})$/; // Accepts +234, 234, or 0 followed by 7, 8, or 9 and then 9 more digits
-  const [loading, setLoading] = useState(false);
 
   const [formErrors, setFormErrors] = useState({
-    name: "",
-    username: "",
     email: "",
-    phone: "",
     password: "",
   });
 
   const [formData, setFormData] = useState({
-    name: "",
-    username: "",
     email: "",
-    role: "",
-    gender: "",
     password: "",
-    phone: "",
   });
 
   const toastTop = useRef(null);
@@ -69,11 +59,6 @@ const Signup = ({ f7route, f7router }) => {
 
     if (name === "email" && !emailRegex.test(value)) {
       error = "Invalid Email address";
-    } else if (
-      name === "phone" &&
-      (!phoneRegex.test(value) || value.length < 10)
-    ) {
-      error = "Invalid phone number (min 10 digits)";
     } else if (name === "password" && !isValidPassword(value)) {
       error =
         "Password must have at least 8 characters, include numbers, alphabets, and special characters (# !@$%^&*)";
@@ -101,16 +86,14 @@ const Signup = ({ f7route, f7router }) => {
         return;
       }
       console.log(formData);
-      console.log("Making request to:", "/api/v1/signup");
-      const response = await axiosPrivate.post("/signup", formData);
+      console.log("Making request to:", "/api/v1/login");
+      const response = await axiosPrivate.post("/login", formData);
       console.log("Response:", response);
-      openDialog(); // Open the dialog when loading starts
 
       console.log(response.data);
-      if (response && response?.status === 201) {
-        f7.dialog.close();
+      if (response && response?.status === 200) {
         // Navigate to the photo page after successful signup
-        handleRouteToOwnerHome();
+        handleRouteToHome();
       }
     } catch (error) {
       showToastTop();
@@ -118,8 +101,12 @@ const Signup = ({ f7route, f7router }) => {
     }
   };
 
-  const handleRouteToPhotoPage = () => {
-    f7router.navigate("/signupnext");
+  // const handleRouteToPhotoPage = () => {
+  //   f7router.navigate("/signupnext");
+  // };
+
+  const openDialog = () => {
+    f7.dialog.preloader();
   };
 
   const showToastTop = () => {
@@ -135,28 +122,22 @@ const Signup = ({ f7route, f7router }) => {
     toastTop.current.open();
   };
 
-  const handleRouteToOwnerHome = () => {
-    f7router.navigate('/ownerhome');
+  const handleRouteToHome = () => {
+    f7router.navigate("/seekerhome");
   };
 
-  const openDialog = () => {
-    f7.dialog.preloader();
-  };
-
-  useEffect(() => {
+    useEffect(() => {
     // Extract role from dynamic route params
     if (f7route && f7route.params && f7route.params.role) {
       setRole(f7route.params.role);
 
       // Set formData.role directly to "owner"
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        role: "owner",
-      }));
+      // setFormData((prevFormData) => ({
+      //   ...prevFormData,
+      //   role: "owner",
+      // }));
     }
   }, [f7route]);
-
-  // ... (rest of the component)
 
   return (
     <Page className="bg-zinc-50">
@@ -169,35 +150,10 @@ const Signup = ({ f7route, f7router }) => {
       <Toaster />
       <img src={roomarlogo} alt="" className="mx-auto w-20 mt-6" />
       <h1 className="text-lg font-semibold ml-6 text-[#e11d48] mt-4">
-        Welcome!
+        Welcome back!
       </h1>
-      <List form>
-        <ListInput
-          outline
-          label="Full Name"
-          floatingLabel
-          type="text"
-          value={formData.name}
-          onInput={handleInputChange}
-          name="name"
-          placeholder="Your name"
-          clearButton
-        >
-          <Icon icon="demo-list-icon" slot="media" />
-        </ListInput>
-        <ListInput
-          outline
-          label="Username"
-          floatingLabel
-          type="text"
-          placeholder="Your username"
-          value={formData.username}
-          onInput={handleInputChange}
-          name="username"
-          clearButton
-        >
-          <Icon icon="demo-list-icon" slot="media" />
-        </ListInput>
+
+      <List strongIos dividersIos insetIos className="mt-2">
         <ListInput
           outline
           label="E-mail"
@@ -223,37 +179,6 @@ const Signup = ({ f7route, f7router }) => {
           </ListItem>
         )}
         <ListInput
-          type="text"
-          floatingLabel
-          outline
-          name="role"
-          label="Role"
-          placeholder="Your role"
-          readonly
-          onInput={handleInputChange}
-          value={formData.role}
-          style={{
-            paddingLeft: "0px",
-            pointerEvents: "none",
-            color: "black",
-          }}
-        ></ListInput>
-        <ListInput
-          outline
-          floatingLabel
-          label="Gender"
-          name="gender"
-          type="select"
-          defaultValue="Male"
-          placeholder="Please choose..."
-          value={formData.gender}
-          onInput={handleInputChange}
-        >
-          <Icon icon="demo-list-icon" slot="media" />
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-        </ListInput>
-        <ListInput
           outline
           label="Password"
           floatingLabel
@@ -272,45 +197,25 @@ const Signup = ({ f7route, f7router }) => {
             {formErrors.password}
           </ListItem>
         )}
-        <ListInput
-          outline
-          label="Phone"
-          floatingLabel
-          type="tel"
-          placeholder="Your phone number"
-          value={formData.phone}
-          onInput={handleInputChange}
-          onBlur={handleBlur}
-          name="phone"
-          clearButton
-        >
-          <Icon icon="demo-list-icon" slot="media" />
-        </ListInput>
-        {formErrors.phone && (
-          <ListItem className="mt-0 text-xs text-red-500 mb-2 pl-2 pt-0">
-            {formErrors.phone}
-          </ListItem>
-        )}
-        <div className="right-2">
-          {/* <Link className="text-sm text-[#e11d48]">Forgot Your Password?</Link> */}
+        <div className="ml-4 cursor-pointer mb-6">
+          <Link className="text-sm text-[#e11d48]" href="/forgotpassword">Forgot Your Password? Reset</Link>
         </div>
-
         {/* Second layer */}
-        <div className="bg-[#e11d48] text-white text-center rounded-full font-semibold py-2 text-xl mx-auto w-[90%]">
-          <button type="submit" onClick={handleSignup}>
-            {" "}
-            Sign Up
+        <div className="bg-[#e11d48] text-white cursor-pointer text-center rounded-full font-semibold py-2 text-xl w-[80%] mx-auto mt-4">
+          <button type="submit" onClick={handleSignup} className="cursor-pointer">
+            Login
           </button>
         </div>
         <p className="text-center text-sm mt-2">
-          Already have an account?{" "}
-          <Link href="/login" className="text-[#e11d48] font-semibold">
-            Login
+          Don't have an account?{" "}
+          <Link href="/signup" className="text-[#e11d48] font-semibold">
+            Sign up
           </Link>
         </p>
+        {/* <p className="text-center">Or sign up with</p> */}
       </List>
     </Page>
   );
 };
 
-export default Signup;
+export default LoginSeeker;
