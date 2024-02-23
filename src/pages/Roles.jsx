@@ -85,7 +85,7 @@ const Roles = ({ f7router }) => {
             <p className="italic text-base pb-2">Rent without stress</p>
             {/* Continue button now navigates to signup with the chosen role */}
             <a
-              href="/seekerhome"
+              href="/signupseeker"
               className="text-base bg-[#f9a0a5] px-2 py-1 font-semibold rounded-md"
             >
               Continue

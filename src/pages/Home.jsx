@@ -8,8 +8,39 @@ import Navbottom from '../components/App/Navbottom';
 import Cards from '../components/App/Card';
 
 const Home = () => {
-	const { setPopupOpened } = useContext(GlobalContext);
-	const [selected, setSelected] = useState('home');
+  const { setPopupOpened } = useContext(GlobalContext);
+  const [selected, setSelected] = useState('home');
+  const [posts, setPosts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    // Fetch posts when the component mounts or when the page changes
+    const fetchPosts = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const response = await axiosPrivate.get("/", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: {
+            page: currentPage,
+          },
+        });
+
+        if (response.status === 200) {
+          // Order posts by createdAt in descending order (latest first)
+          setPosts(response.data.posts);
+        } else {
+          console.error("Error fetching posts:", response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    };
+
+    fetchPosts();
+  }, [currentPage]); 
 
 
 	return (
@@ -110,14 +141,9 @@ const Home = () => {
         </Link>
       	</div>
         <div className='mb-24'>
-			<Cards />	
-			<Cards />	
-			<Cards />	
-			<Cards />	
-			<Cards />	
-			<Cards />	
-			<Cards />	
-			<Cards />	
+        {posts.map((post) => (
+          <Cards key={post._id} post={post} />
+        ))}
       </div>
 
 

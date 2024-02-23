@@ -7,6 +7,7 @@ import Login from "../pages/Login.jsx";
 import LoginSeeker from "../pages/LoginSeeker.jsx";
 import Owner from "../pages/Owner.jsx";
 import OwnerOptions from "../pages/OwnerOptions.jsx";
+import PostDetails from "../pages/PostDetails.jsx";
 import ProfileOptions from "../pages/ProfileOptions.jsx";
 import ResetPassword from "../pages/ResetPassword.jsx";
 import Roles from "../pages/Roles.jsx";
@@ -99,6 +100,10 @@ var routes = [
 	  {
 		path: "/successreset",
 		component: SuccessReset,
+	  },
+	  {
+		path: "/post/:postId",
+		component: PostDetails,
 	  },
 
 ];

@@ -1,10 +1,10 @@
 // Post.jsx
 import React, { useState } from "react";
-import Carousel from "./Carousel";
+import Carousel from "../components/App/Carousel";
 import { StarIcon } from "@heroicons/react/20/solid";
-import axiosPrivate from "../../api/axios";
+import axiosPrivate from "../api/axios";
 
-const Cards = ({ post }) => {
+const Post = ({ post }) => {
   const [visiblePosts, setVisiblePosts] = useState([]);
   const [postDetails, setPostDetails] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -133,4 +133,4 @@ const Cards = ({ post }) => {
   );
 };
 
-export default Cards;
+export default Post;

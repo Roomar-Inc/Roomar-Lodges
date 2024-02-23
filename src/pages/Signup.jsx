@@ -118,10 +118,6 @@ const Signup = ({ f7route, f7router }) => {
     }
   };
 
-  const handleRouteToPhotoPage = () => {
-    f7router.navigate("/signupnext");
-  };
-
   const showToastTop = () => {
     // Create toast
     if (!toastTop.current) {

@@ -35,8 +35,8 @@ const SignupSeeker = ({ f7route, f7router }) => {
     name: "",
     username: "",
     email: "",
-    role: "",
-    gender: "",
+    role: "seeker",
+    gender: "Male",
     password: "",
     phone: "",
   });

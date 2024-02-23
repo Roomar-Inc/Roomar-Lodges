@@ -92,6 +92,8 @@ const LoginSeeker = ({ f7route, f7router }) => {
 
       console.log(response.data);
       if (response && response?.status === 200) {
+        const token = response.data.token;
+        localStorage.setItem("token", token);
         // Navigate to the photo page after successful signup
         handleRouteToHome();
       }
@@ -183,7 +185,7 @@ const LoginSeeker = ({ f7route, f7router }) => {
           label="Password"
           floatingLabel
           type="password"
-          placeholder="Set password"
+          placeholder="Enter your password"
           value={formData.password}
           onInput={handleInputChange}
           onBlur={handleBlur}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Link,
   Panel,
@@ -27,10 +27,58 @@ import Navbottom from "../components/App/Navbottom";
 import Cards from "../components/App/Card";
 import ConfettiAnimation from "../components/App/Confetti";
 import cf from "../../resources/cf-1.png";
+import CreatePostForm from "./CreatePostForm";
+import axiosPrivate from "../api/axios";
+import Post from "./Post";
 
 const Owner = () => {
   const { setPopupOpened } = useContext(GlobalContext);
   const [selected, setSelected] = useState("home");
+
+  // State to store the list of posts
+  const [posts, setPosts] = useState([]);
+  const [isCreatePostModalOpen, setCreatePostModalOpen] = useState(false);
+
+  useEffect(() => {
+    // Fetch posts when the component mounts
+    const fetchPosts = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        console.log(token);
+
+        const response = await axiosPrivate.get("/posts", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(token);
+
+        if (response.status === 200) {
+          console.log(response)
+          console.log(response.data)
+          console.log(response.data.posts)
+          console.log("ho", posts)
+          // Order posts by createdAt in descending order (latest first)
+          setPosts(response.data.posts);
+          console.log("hi", posts)
+        } else {
+          console.error("Error fetching posts:", response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    };
+
+    fetchPosts();
+  }, []); // The empty dependency array ensures that this effect runs only once, similar to componentDidMount
+
+  // Function to add a new post to the list
+  const addPost = (newPost) => {
+    console.log("hello", posts)
+    setPosts([...posts, newPost]);
+    console.log("hiwi", posts)
+    setCreatePostModalOpen(false); // Close the CreatePostForm modal after adding a new post
+  };
 
   return (
     <Page id="home" className="bg-zinc-50">
@@ -98,7 +146,7 @@ const Owner = () => {
           <Link href="/">
             <div className="mx-4 bg-rose-100 p-3 rounded-md">
               <div className="flex items-center justify-between pb-2">
-                <div className="font-semibold"> Find an accommodation </div>{" "}
+                <div className="font-semibold"> Find an accommodation </div>
                 <XMarkIcon className="h-5" />
               </div>
               <p className="text-xs">
@@ -127,18 +175,37 @@ const Owner = () => {
             <UserIcon className="h-6" />
           </Link>
         </div>
-        {/* {Main Content Starts Here} */}
-        <img src={cf} alt="confetti" className="mx-auto pt-12" />
-        <div className="text-2xl font-semibold mx-auto text-center">
-          You're all set!
-        </div>
-        <div className="mx-auto flex justify-center text-md">
-          Make your first post now. Your viewers are waiting.
-        </div>
-        <div className="bg-[#e11d48] text-white text-center rounded-full font-semibold py-2 text-xl w-[80%] mx-auto mt-4">
-          Create post
-        </div>
-        {/* {Main Content Ends Here} */}
+              {/* Main Content Starts Here */}
+        {/* Conditionally render posts or CreatePostForm based on isCreatePostModalOpen */}
+        {isCreatePostModalOpen ? (
+          <CreatePostForm
+            onCreatePost={addPost}
+            onCancel={() => setCreatePostModalOpen(false)}
+          />
+        ) : (
+          <>
+            {posts.length > 0 ? (
+              posts.map((post) => <Post key={post._id} post={post} />)
+            ) : (
+              <div className="mx-auto pt-12">
+                <img src={cf} alt="confetti" />
+                <div className="text-2xl font-semibold mx-auto text-center">
+                  You're all set!
+                </div>
+                <div className="mx-auto flex justify-center text-md">
+                  Make your first post now. Your viewers are waiting.
+                </div>
+              </div>
+            )}
+
+            <div className="bg-[#e11d48] text-white text-center rounded-full font-semibold py-2 text-xl w-[80%] mx-auto mt-4">
+              <button onClick={() => setCreatePostModalOpen(true)}>
+                Create post
+              </button>
+            </div>
+          </>
+        )}
+        {/* Main Content Ends Here */}
       </Tab>
     </Page>
   );

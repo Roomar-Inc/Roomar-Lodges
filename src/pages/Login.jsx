@@ -8,7 +8,7 @@ import {
   ListInput,
   ListItem,
   Link,
-  f7
+  f7,
 } from "framework7-react";
 import roomarlogo from "../../resources/roomar-rlo.png";
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
@@ -77,7 +77,7 @@ const Login = ({ f7route, f7router }) => {
     return passwordRegex.test(password);
   };
 
-  const handleSignup = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     try {
       if (Object.values(formErrors).some((error) => error)) {
@@ -92,6 +92,9 @@ const Login = ({ f7route, f7router }) => {
 
       console.log(response.data);
       if (response && response?.status === 200) {
+        const token = response.data.token;
+        localStorage.setItem("token", token);
+
         // Navigate to the photo page after successful signup
         handleRouteToOwnerHome();
       }
@@ -123,10 +126,10 @@ const Login = ({ f7route, f7router }) => {
   };
 
   const handleRouteToOwnerHome = () => {
-    f7router.navigate('/ownerhome');
+    f7router.navigate("/ownerhome");
   };
 
-    useEffect(() => {
+  useEffect(() => {
     // Extract role from dynamic route params
     if (f7route && f7route.params && f7route.params.role) {
       setRole(f7route.params.role);
@@ -183,7 +186,7 @@ const Login = ({ f7route, f7router }) => {
           label="Password"
           floatingLabel
           type="password"
-          placeholder="Set password"
+          placeholder="Enter your password"
           value={formData.password}
           onInput={handleInputChange}
           onBlur={handleBlur}
@@ -198,11 +201,17 @@ const Login = ({ f7route, f7router }) => {
           </ListItem>
         )}
         <div className="ml-4 cursor-pointer mb-6">
-          <Link className="text-sm text-[#e11d48]" href="/forgotpassword">Forgot Your Password? Reset</Link>
+          <Link className="text-sm text-[#e11d48]" href="/forgotpassword">
+            Forgot Your Password? Reset
+          </Link>
         </div>
         {/* Second layer */}
         <div className="bg-[#e11d48] text-white cursor-pointer text-center rounded-full font-semibold py-2 text-xl w-[80%] mx-auto mt-4">
-          <button type="submit" onClick={handleSignup} className="cursor-pointer">
+          <button
+            type="submit"
+            onClick={handleLogin}
+            className="cursor-pointer"
+          >
             Login
           </button>
         </div>
