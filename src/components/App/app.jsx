@@ -1,15 +1,13 @@
+import { f7, f7ready } from "framework7-react";
 import { getDevice } from "framework7/lite-bundle";
-import { f7, f7ready, App, View, Page } from "framework7-react";
-import { KonstaProvider } from "konsta/react";
 
+import {
+	GlobalContextProvider,
+} from "../../contexts/GlobalContext";
 import capacitorApp from "../../js/capacitor-app";
 import routes from "../../js/routes";
 import store from "../../js/store";
 import BottomNav from "./BottomNav";
-import {
-	GlobalContextProvider,
-} from "../../contexts/GlobalContext";
-import { change } from "dom7";
 import InitApp from "./InitApp";
 
 const MyApp = () => {

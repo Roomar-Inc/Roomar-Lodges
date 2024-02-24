@@ -1,9 +1,8 @@
 import { Page } from "framework7-react";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../contexts/GlobalContext";
-const PopUpPage = ({}) => {
-	const { popupOpened, loading, setLoading } =
-		useContext(GlobalContext);
+const PopUpPage = () => {
+	const { popupOpened, loading, setLoading } = useContext(GlobalContext);
 
 	const [top, setTop] = useState(true);
 

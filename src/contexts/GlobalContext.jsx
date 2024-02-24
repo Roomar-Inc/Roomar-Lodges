@@ -61,7 +61,6 @@ export const GlobalContextProvider = ({ children }) => {
 	}, []);
 	return (
 		<GlobalContext.Provider
-			children={children}
 			value={{
 				popupOpened,
 				setPopupOpened,
@@ -76,6 +75,8 @@ export const GlobalContextProvider = ({ children }) => {
 				text,
 				setText,
 			}}
-		/>
+		>
+			{children}
+		</GlobalContext.Provider>
 	);
 };

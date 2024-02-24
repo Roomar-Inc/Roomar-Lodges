@@ -47,20 +47,19 @@ var routes = [
 	{
 		path: "/signup/:role",
 		component: Signup,
-	  },
-	  {
+	},
+	{
 		path: "/login",
 		component: Login,
-	  },
-	  {
+	},
+	{
 		path: "/ownerhome",
 		component: Owner,
-	  },
-	  {
+	},
+	{
 		path: "/owneroptions",
 		component: OwnerOptions,
-	  },
-
+	},
 ];
 
 export default routes;
