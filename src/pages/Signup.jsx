@@ -240,7 +240,6 @@ const Signup = ({ f7route, f7router }) => {
           label="Gender"
           name="gender"
           type="select"
-          defaultValue="Male"
           placeholder="Please choose..."
           value={formData.gender}
           onInput={handleInputChange}

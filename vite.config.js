@@ -30,7 +30,9 @@ export default async () => {
       },
     },
     server: {
-      host: true,
+      hostname: '127.0.0.1',
+      cleartext: true,
+      allowNavigation: ['*'],
     },
 
   };

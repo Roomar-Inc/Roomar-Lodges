@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline Page</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #fff; /* Set your desired background color */
+      color: #e11d48; /* Set the color of "OFFLINE" */
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #e11d48; /* Set your desired background color for the button */
+      color: #fff; /* Set the text color of the button */
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>OFFLINE</h1>
+  <p>Please check your internet connection</p>
+  <button onclick="retry()">Retry</button>
+
+  <script>
+    function retry() {
+      // Redirect to the route '/' when the "Retry" button is clicked
+      window.location.href = '/';
+    }
+  </script>
+</body>
+</html>
